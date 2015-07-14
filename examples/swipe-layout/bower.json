@@ -1,0 +1,21 @@
+{
+  "name": "examples",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Degree53/MarionetteSwipeAction",
+  "authors": [
+    "Karl Purkhardt <karl.purkhardt@degree53.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "hammerjs": "~2.0.4",
+    "marionette": "~2.4.2"
+  }
+}

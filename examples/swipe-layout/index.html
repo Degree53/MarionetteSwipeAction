@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Swipe Action Example</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .screen {
+            -webkit-user-select: none;
+            width: 100vw;
+            height: 100vh;
+        }
+        .swipe-area {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100px;
+            background-color: #ffc000;
+            height: 100vh;
+        }
+        h1 {
+            font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
+            font-size: 8vw;
+            margin: 4vw 4vw;
+        }
+    </style>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/hammerjs/hammer.js"></script>
+    <script src="bower_components/jquery-hammerjs/jquery.hammer-full.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+    <script src="bower_components/marionette/lib/backbone.marionette.min.js"></script>
+    <script src="../../swipe-action.js"></script>
+</head>
+<body>
+    <main></main>
+    <script type="text/template" id="screen-template">
+        <div class="swipe-area"></div>
+        <h1><%= name %></h1>
+    </script>
+    <script>
+
+        window.Behaviors = {};
+        window.Behaviors.DragAction = SwipeActionBehavior;
+
+        Marionette.Behaviors.behaviorsLookup = function() {
+            return window.Behaviors;
+        };
+
+        var LayoutView = Marionette.LayoutView.extend({
+            el: 'main',
+            template: _.template('<div class="content"></div>'),
+            regions: {
+                'content': '.content'
+            }
+        });
+
+        var ScreenView = Marionette.ItemView.extend({
+            className: 'screen',
+            template: '#screen-template',
+            behaviors: {
+                DragAction: {
+                    targetElement: '.swipe-area'
+                }
+            },
+            serializeData: function() {
+                return {
+                    name: this.name
+                }
+            }
+        });
+
+        var Screen1 = ScreenView.extend({
+            id: 'screen-1',
+            name: 'Screen 1',
+            onSwipeComplete: function() {
+                this._parentLayoutView().getRegion('content').show(new Screen2());
+            }
+        });
+
+        var Screen2 = ScreenView.extend({
+            id: 'screen-2',
+            name: 'Screen 2',
+            onSwipeComplete: function() {
+                this._parentLayoutView().getRegion('content').show(new Screen1());
+            }
+        });
+
+        var layout = new LayoutView();
+        layout.render();
+        layout.getRegion('content').show(new Screen1())
+
+    </script>
+</body>
+</html>
