@@ -141,7 +141,7 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
             this.view.triggerMethod('swipe:cancelled');
 
             // Reset the behavior
-            this.reset($(e.target));
+            this.__reset($(e.target));
         }
 
         // Update the direction
