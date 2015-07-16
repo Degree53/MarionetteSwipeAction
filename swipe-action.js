@@ -45,15 +45,7 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
         /**
          * Specifies whether the user can drag/swipe to the right
          */
-        enableSwipeRight: true,
-
-        /**
-         * Default hammer options.  Configured for left/right swipes only by default.
-         */
-        hammerOptions: {
-            dragLockToAxis: true,
-            dragBlockHorizontal: true
-        }
+        enableSwipeRight: true
     },
 
     /**
@@ -66,15 +58,10 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
      */
     dragged: false,
 
-    /**
-     * Called each time the view is rendered.
-     */
     onRender: function() {
-
-        // Create new instance of hammer and attach it to the element
-        this.hammer = new Hammer(this.getDragTargetElement(), this.options.hammerOptions);
-        this.hammer.on('dragleft dragright swipeleft swiperight', this.__onDrag.bind(this));
-        this.hammer.on('dragend', this.__onDragEnd.bind(this));
+        this.hammer = this.getDragTargetElement().hammer();
+        this.hammer.bind("pan", this.__onDrag.bind(this));
+        this.hammer.bind("panend", this.__onDragEnd.bind(this));
     },
 
     /**
@@ -219,5 +206,9 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
         this.complete = true;
         this.view.triggerMethod('swipe:complete');
         this.__reset($el);
+    },
+
+    onDestroy: function() {
+        this.getDragTargetElement().data('hammer').destroy();
     }
 });
