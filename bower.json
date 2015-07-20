@@ -1,0 +1,22 @@
+{
+  "name": "MarionetteSwipeAction",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Degree53/MarionetteSwipeAction",
+  "authors": [
+    "Karl Purkhardt <karl.purkhardt@degree53.com>"
+  ],
+  "description": "Provides a Marionette View Behaviour for managing swipe actions on a view.",
+  "main": "swipe-action.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-hammerjs": "~2.0.0",
+    "marionette": "~2.4.2"
+  }
+}
