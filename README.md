@@ -11,5 +11,5 @@ See http://hammerjs.github.io/browser-support/
 # Requirements
 
  - Marionette v1.7.0+
- - Hammer 2.0+
- - jQuery Hammer 2.0+
+ - Hammer v2.0+
+ - jQuery Hammer v2.0+
