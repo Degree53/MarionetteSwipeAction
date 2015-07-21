@@ -210,6 +210,10 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
     },
 
     onDestroy: function() {
-        this.getDragTargetElement().data('hammer').destroy();
+        var el = this.getDragTargetElement();
+        if (!el || !el.data('hammer')) {
+            return;
+        }
+        el.data('hammer').destroy();
     }
 });
