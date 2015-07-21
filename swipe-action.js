@@ -59,9 +59,9 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
     dragged: false,
 
     onRender: function() {
-        this.hammer = this.getDragTargetElement().hammer();
-        this.hammer.bind("pan", this.__onDrag.bind(this));
-        this.hammer.bind("panend", this.__onDragEnd.bind(this));
+        this.hammer = new Hammer(this.getDragTargetElement().get(0));
+        this.hammer.on("pan", this.__onDrag.bind(this));
+        this.hammer.on("panend", this.__onDragEnd.bind(this));
     },
 
     /**
@@ -79,7 +79,7 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
      * Determines if the swipe/drag direction is allowed.
      */
     directionAllowed: function(e) {
-        var direction = e.gesture.direction;
+        var direction = e.direction;
         
         if (this.dragged) {
             return true;
@@ -115,7 +115,7 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
         this.dragged = true;
 
         // Grab the swipe direction
-        var direction = e.gesture.direction;
+        var direction = e.direction;
 
         // Trigger a drag event
         this.triggerMethod('drag', e);
@@ -165,7 +165,7 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
         var $el = $(e.target);
 
         // See if the user dragged far enough for this to count as an action
-        if (!this.hasDraggedFarEnough(e.gesture.deltaX)) {
+        if (!this.hasDraggedFarEnough(e.deltaX)) {
             this.cancelAction($el);
         }
         else {
@@ -210,10 +210,6 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
     },
 
     onDestroy: function() {
-        var el = this.getDragTargetElement();
-        if (!el || !el.data('hammer')) {
-            return;
-        }
-        el.data('hammer').destroy();
+        this.hammer.destroy();
     }
 });
