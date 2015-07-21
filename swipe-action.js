@@ -80,6 +80,10 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
      */
     directionAllowed: function(e) {
         var direction = e.gesture.direction;
+        
+        if (this.dragged) {
+            return true;
+        }
 
         if (this.options.enableSwipeLeft && direction === Hammer.DIRECTION_LEFT) {
             return true;
