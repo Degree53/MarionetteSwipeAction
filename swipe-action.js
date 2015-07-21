@@ -121,14 +121,11 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
             return;
         }
 
-        // If the user changed direction
+        // If the user changed direction, allow it, but don't change the recorded direction
+        // as this is used on panend to determine what action to perform.  If a user starts
+        // swiping left, it's a left swipe regardless of whether they change their mind.
         if (this.direction) {
-
-            // Cancel the previous swipe
-            this.view.triggerMethod('swipe:cancelled');
-
-            // Reset the behavior
-            this.__reset($(e.target));
+            return;
         }
 
         // Update the direction
