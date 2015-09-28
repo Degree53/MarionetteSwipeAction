@@ -2,21 +2,21 @@
  * Provides swipe action behavior to an existing view.
  * This can be used for swipe based interactions such as
  * swipe to delete.
- * 
+ *
  * Events triggered:
- * 
+ *
  *  - swipe:left
  *    Called when the user starts swiping left.
- *    
+ *
  *  - swipe:right
  *    Called when the user starts swiping right.
 
  *  - swipe:reset
- *    Called when a user cancels or completes a swipe. 
- *    
+ *    Called when a user cancels or completes a swipe.
+ *
  *  - swipe:cancelled
  *    Called when a swipe action is cancelled after it has started.
- *  
+ *
  *  - swipe:complete
  *    Called when a swipe action is completed.
  *
@@ -80,7 +80,7 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
      */
     directionAllowed: function(e) {
         var direction = e.direction;
-        
+
         if (this.dragged) {
             return true;
         }
@@ -162,14 +162,12 @@ var SwipeActionBehavior = Marionette.Behavior.extend({
         // Trigger a dragend event
         this.triggerMethod('dragend', e);
 
-        var $el = $(e.target);
-
         // See if the user dragged far enough for this to count as an action
         if (!this.hasDraggedFarEnough(e.deltaX)) {
-            this.cancelAction($el);
+            this.cancelAction(this.getDragTargetElement());
         }
         else {
-            this.completeAction($el);
+            this.completeAction(this.getDragTargetElement());
         }
     },
 
