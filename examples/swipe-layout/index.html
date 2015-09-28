@@ -32,7 +32,7 @@
     <script src="bower_components/underscore/underscore-min.js"></script>
     <script src="bower_components/backbone/backbone.js"></script>
     <script src="bower_components/marionette/lib/backbone.marionette.min.js"></script>
-    <script src="../../swipe-action.js"></script>
+    <script src="bower_components/MarionetteSwipeAction/index.js"></script>
 </head>
 <body>
     <main></main>
@@ -62,7 +62,8 @@
             template: '#screen-template',
             behaviors: {
                 DragAction: {
-                    targetElement: '.swipe-area'
+                    targetElement: '.swipe-area',
+                    enableSwipeRight: false
                 }
             },
             serializeData: function() {
