@@ -17,7 +17,7 @@ See http://hammerjs.github.io/browser-support/
 # Running the Examples
 
 ```bash
-cd examples/drag-to-delete
+cd examples/swipe-layout
 bower install
 static-server -p 8080
 ```
