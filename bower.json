@@ -17,6 +17,6 @@
   ],
   "dependencies": {
     "hammerjs": "2.0.x",
-    "marionette": ">=1.7.0"
+    "marionette": ">=1.7.0 <3"
   }
 }
